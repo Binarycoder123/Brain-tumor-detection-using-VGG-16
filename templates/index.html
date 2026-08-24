@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brain Tumor Classification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">BT</div>
+          <div>
+            <p class="eyebrow">Clinical AI</p>
+            <h1>Brain Tumor Classifier</h1>
+          </div>
+        </div>
+        <button class="ghost-button" type="button">Review model</button>
+      </header>
+
+      <main class="dashboard">
+        <section class="hero-card">
+          <div class="hero-copy">
+            <p class="eyebrow accent">MRI analysis dashboard</p>
+            <h2>Predict tumor type from a brain scan image.</h2>
+            <p class="hero-subtext">
+              Upload a brain MRI to receive a classification from a VGG16-based model trained on four tumor categories.
+            </p>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-pill">
+              <span class="metric-label">Classes</span>
+              <strong>4</strong>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-label">Dataset</span>
+              <strong>4480</strong>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-label">Glioma recall</span>
+              <strong>95%</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel upload-panel">
+            <div class="panel-header">
+              <h3>Scan upload</h3>
+              <span>PNG / JPG / JPEG</span>
+            </div>
+
+            <label class="upload-zone" for="imageInput">
+              <input id="imageInput" type="file" accept="image/*" />
+              <div class="upload-inner">
+                <div class="upload-icon">⇪</div>
+                <strong>Choose MRI image</strong>
+                <small>or drag and drop a file here</small>
+              </div>
+            </label>
+
+            <div class="preview-card">
+              <img id="previewImage" alt="Selected MRI preview" hidden />
+              <div id="placeholder" class="placeholder-state">
+                <span>No image selected</span>
+              </div>
+            </div>
+
+            <button id="predictButton" class="primary-button" type="button" disabled>
+              Analyze image
+            </button>
+          </div>
+
+          <div class="panel result-panel">
+            <div class="panel-header">
+              <h3>Prediction</h3>
+              <span id="statusTag" class="status-tag neutral">Awaiting input</span>
+            </div>
+
+            <div id="resultContent" class="result-content empty">
+              <div class="result-placeholder">
+                <div class="result-icon">✦</div>
+                <p>Upload an MRI to get the model prediction and confidence breakdown.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bottom-grid">
+          <div class="panel model-panel">
+            <div class="panel-header">
+              <h3>Model summary</h3>
+            </div>
+            <ul class="summary-list">
+              <li><span>Architecture</span><strong>VGG16 + custom head</strong></li>
+              <li><span>Input size</span><strong>224 × 224 RGB</strong></li>
+              <li><span>Classes</span><strong>Glioma, meningioma, no tumor, pituitary</strong></li>
+              <li><span>Training strategy</span><strong>Stage 1 + fine-tuned blocks</strong></li>
+            </ul>
+          </div>
+
+          <div class="panel classes-panel">
+            <div class="panel-header">
+              <h3>Class labels</h3>
+            </div>
+            <div class="class-chips">
+              <span class="chip glioma">Glioma</span>
+              <span class="chip meningioma">Meningioma</span>
+              <span class="chip notumor">No tumor</span>
+              <span class="chip pituitary">Pituitary</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
